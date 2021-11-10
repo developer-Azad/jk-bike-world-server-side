@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
+
 const cors = require('cors');
 require('dotenv').config();
+
 const { MongoClient } = require('mongodb')
+const ObjectId = require('mongodb').ObjectId;
 
 const port = process.env.PORT || 5000;
 
+//middleWire
 app.use(cors());
 app.use(express.json());
 
@@ -17,7 +21,7 @@ async function run() {
         await client.connect();
         const database = client.db('bike_world');
         const bikesCollection = database.collection('bikes');
-        // const usersCollection = database.collection('users');
+        const usersCollection = database.collection('users');
         
         app.get('/bikes', async(req, res) => {
             const email = req.query.email;
@@ -33,6 +37,23 @@ async function run() {
             console.log(result);
             res.json(result);
         })
+
+        app.post('/users', async(req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            console.log(result);
+            res.json(result);
+        })
+
+        // app.delete('/bikes/:id', async(req, res) => {
+        //     const id = req.params.id;
+        //     const query = {_id: ObjectId(id)};
+        //     const result = await bikesCollection.deleteOne(query);
+        //     console.log('deleted products id : ', result);
+        //     res.json(result);
+        // })
+
+
 
     }
     finally{
