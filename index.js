@@ -104,11 +104,26 @@ async function run() {
             res.json(result);
         })
 
+        //put api for users
         app.put('/users/admin', async(req, res) => {
             const user = req.body;
             const filter = {email: user.email};
             const updateDoc = {$set: {role: 'admin'}};
             const result = await usersCollection.updateOne(filter, updateDoc);
+            console.log(result);
+            res.json(result);
+        })
+
+        //put api for orders
+        app.put('/orders/:id', async(req, res) => {
+            const id = req.params.id;
+            const updatedOrder = req.body;
+            const filter = {_id: ObjectId(id)};
+            const options = {upsert: true};
+            const updateDoc = {$set: {status: updatedOrder.status
+            },
+        };
+            const result = await ordersCollection.updateOne(filter, updateDoc, options);
             console.log(result);
             res.json(result);
         })
@@ -128,8 +143,6 @@ async function run() {
             console.log('deleted products id : ', result);
             res.json(result);
         })
-
-
 
     }
     finally{
