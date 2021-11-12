@@ -113,13 +113,13 @@ async function run() {
             res.json(result);
         })
 
-        // app.delete('/bikes/:id', async(req, res) => {
-        //     const id = req.params.id;
-        //     const query = {_id: ObjectId(id)};
-        //     const result = await bikesCollection.deleteOne(query);
-        //     console.log('deleted products id : ', result);
-        //     res.json(result);
-        // })
+        app.delete('/bikes/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await bikesCollection.deleteOne(query);
+            console.log('deleted products id : ', result);
+            res.json(result);
+        })
 
         app.delete('/orders/:id', async(req, res) => {
             const id = req.params.id;
