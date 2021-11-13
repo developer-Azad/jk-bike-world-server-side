@@ -105,6 +105,18 @@ async function run() {
         })
 
         //put api for users
+        app.put('/users', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: user
+            };
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
+            res.json(result);
+        });
+
+        //put api for users admin
         app.put('/users/admin', async(req, res) => {
             const user = req.body;
             const filter = {email: user.email};
