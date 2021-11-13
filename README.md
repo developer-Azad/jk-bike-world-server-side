@@ -1,6 +1,6 @@
 # JK Bike World
 
-This is a motor cycle website. we provide best and better quality bike
+This is a motor cycle website. we provide best and better quality bikes. you can purchase our products at your own budget. You will also able to buy from us with 0% emi for 12 months. use this oportunity and enjoy bike riding.
 
 ## Our webside link
 Click here to visit us [click here](https://jk-bike-galary.web.app/home).
