@@ -6,10 +6,12 @@ This is a motor cycle website. we provide best and better quality bikes. you can
 Click here to visit us [click here](https://jk-bike-galary.web.app/home).
 
 ## Fetures
-* Best bike provider.
-* High speed racing bike
-* 1 year free servicing
-* 3 years enginne waranty
-* Can purchase with 12 months EMI
+* Users can see product details and can place an order with the address after logging in
+* Can remove an order also can leave a review with dynamic rating.
+* An admin can add a new product and make another user an admin.
+* Also can remove an existing product and can manage all orders.
+* Complete authentication system with Firebase.
+* Email-password-based register system also login system with Google.
+* Different dashboard functionality for admin and user.
 
 
