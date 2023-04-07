@@ -19,11 +19,11 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try{
         await client.connect();
-        const database = client.db('sodik_group');
-        const membersCollection = database.collection('members');
-        // const usersCollection = database.collection('users');
-        // const reviewsCollection = database.collection('reviews');
-        // const ordersCollection = database.collection('orders');
+        const database = client.db('bike_world');
+        const bikesCollection = database.collection('bikes');
+        const usersCollection = database.collection('users');
+        const reviewsCollection = database.collection('reviews');
+        const ordersCollection = database.collection('orders');
         
         //Get api for bikes
         app.get('/bikes', async(req, res) => {
@@ -35,18 +35,17 @@ async function run() {
         })
 
         //get api for single bike
-        app.get('/members/:id', async(req, res) => {
+        app.get('/bikes/:id', async(req, res) => {
             const id = req.params.id;
             console.log('bike id', id);
-            const query = {memberId: (id)};
-            console.log(query);
-            const bike = await membersCollection.find(query);
+            const query = {_id: ObjectId(id)};
+            const bike = await bikesCollection.findOne(query);
             res.json(bike);
         })
 
         //Get api for Review
-        app.get('/members', async(req, res) => {
-            const cursor = membersCollection.find({});
+        app.get('/reviews', async(req, res) => {
+            const cursor = reviewsCollection.find({});
             const reviews = await cursor.toArray();
             res.json(reviews);
         })
@@ -75,9 +74,9 @@ async function run() {
         })
 
         //post api for bikes
-        app.post('/members', async(req, res) => {
+        app.post('/bikes', async(req, res) => {
             const bikes = req.body;
-            const result = await membersCollection.insertOne(bikes);
+            const result = await bikesCollection.insertOne(bikes);
             res.json(result);
         })
 
@@ -128,15 +127,15 @@ async function run() {
         })
 
         //put api for orders
-        app.put('/members/:id', async(req, res) => {
+        app.put('/orders/:id', async(req, res) => {
             const id = req.params.id;
             const updatedOrder = req.body;
-            const filter = {memberId: (id)};
+            const filter = {_id: ObjectId(id)};
             const options = {upsert: true};
-            const updateDoc = {
-                $set: updatedOrder
+            const updateDoc = {$set: {status: updatedOrder.status
+            },
         };
-            const result = await membersCollection.updateOne(filter, updateDoc, options);
+            const result = await ordersCollection.updateOne(filter, updateDoc, options);
             console.log(result);
             res.json(result);
         })
@@ -166,7 +165,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('JK Bike World')
+    res.send('Hello JK Bike World!')
 })
 
 app.listen(port, () => {
