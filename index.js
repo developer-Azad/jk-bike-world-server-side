@@ -166,7 +166,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('As Sodik Group Server')
+    res.send('JK Bike World')
 })
 
 app.listen(port, () => {
